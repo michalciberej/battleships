@@ -1,17 +1,17 @@
-export const Ship = (length, hit = 0, isSunk = false) => {
-  return { length, hit, isSunk };
-};
+export class Ship {
+  constructor(size, hits = 0, isSunk = false) {
+    this.size = size;
+    this.hits = hits;
+    this.isSunk = isSunk;
+  }
 
-export function hit(ship) {
-  ship.hit = ship.hit + 1;
-  return ship;
-}
+  hit() {
+    this.hits += 1;
+  }
 
-export function isSunk(ship) {
-  if (ship.length === ship.hit) {
-    ship.isSunk = true;
-    return ship;
-  } else {
-    return ship;
+  sink() {
+    if (this.hits === this.size) {
+      this.isSunk = true;
+    }
   }
 }
