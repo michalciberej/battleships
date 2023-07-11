@@ -9,8 +9,12 @@ export function createGameboardTwoDom() {
   gamebordsContainer.appendChild(gameboardTwoDOM);
 }
 
-export function removeShipContainer() {
+function removeShipContainer() {
   document.querySelector("#shipsContainer").remove();
+}
+
+function removeStartButton() {
+  document.querySelector("button").remove();
 }
 
 export function createBoardsOne() {
@@ -58,4 +62,17 @@ export function createBoardsTwo() {
   }
 }
 
-export function moveStuff() {}
+export function moveStuff() {
+  const gameboardOneDOM = document.querySelector("#gameboardOne");
+  const gameboardTwoDOM = document.querySelector("#gameboardTwo");
+
+  createBoardsTwo();
+
+  removeShipContainer();
+  removeStartButton();
+
+  gameboardOneDOM.style.transform = "scale(0.8) translate(-2rem)";
+
+  gameboardTwoDOM.style.transform = "scale(1)";
+  gameboardTwoDOM.style.position = "relative";
+}

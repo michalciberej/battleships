@@ -43,16 +43,18 @@ body {
 }
 
 #gameboardOne {
-  /* position: relative; */
-  /* left: 2rem; */
-  /* top: -2.5rem; */
-  /* transform: scale(0.75); */
-  /* transform: translateX(8rem); */
+  position: relative;
+  transition: all 1s ease;
 }
 
 #gameboardTwo {
-  position: relative;
-  transform: scale(1);
+  position: absolute;
+  transition: all 1s ease;
+  transform: scale(0);
+}
+
+#gameboardTwo > .boards {
+  background-color: #a3a3a3;
 }
 
 .boards {

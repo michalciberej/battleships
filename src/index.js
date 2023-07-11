@@ -8,13 +8,17 @@ import { dragAndDrop } from "./drag-and-drop.js";
 import {
   createGameboardTwoDom,
   createBoardsOne,
-  createBoardsTwo
+  createBoardsTwo,
+  moveStuff
 } from "./dom.js";
 
 export const gameboardOne = new Gameboard();
 export const gameboardTwo = new Gameboard();
 
-//createGameboardTwoDom();
+createGameboardTwoDom();
 createBoardsOne();
-//createBoardsTwo();
 dragAndDrop();
+
+document.querySelector("button").addEventListener("click", () => {
+  moveStuff();
+});
