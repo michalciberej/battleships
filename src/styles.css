@@ -27,12 +27,100 @@ body {
 
 #gameboardsContainer {
   display: flex;
-  gap: 5rem;
 }
 
-#gameboardOne,
-#gameboardTwo {
+.gameboards {
   width: 20rem;
   height: 20rem;
-  background-color: cadetblue;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #0891b2;
+  border: 1px solid black;
+}
+
+#one {
+  display: flex;
+}
+
+#gameboardOne {
+  /* position: relative; */
+  /* left: 2rem; */
+  /* top: -2.5rem; */
+  /* transform: scale(0.75); */
+  /* transform: translateX(8rem); */
+}
+
+#gameboardTwo {
+  position: relative;
+  transform: scale(1);
+}
+
+.boards {
+  background-color: transparent;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid black;
+  box-sizing: border-box;
+}
+
+#gameboardTwo > .boards:hover {
+  background-color: #78716c;
+}
+
+#shipsContainer {
+  height: 20rem;
+  width: 15rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.ships {
+  background-color: #57534e;
+  height: 2rem;
+  border-radius: 35%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 5;
+  cursor: pointer;
+}
+
+.tower {
+  width: 2rem;
+  height: 2rem;
+  border: 4px solid #747474;
+  box-sizing: border-box;
+  background-color: #292524;
+  border-radius: 0.8rem;
+}
+
+#carrier {
+  width: 10rem;
+}
+
+#battleship {
+  width: 8rem;
+}
+
+#destroyerOne,
+#destroyerTwo {
+  width: 6rem;
+}
+
+#submarineOne,
+#submarineTwo {
+  width: 4rem;
+}
+
+#buttons {
+  margin-top: 5rem;
+  display: flex;
+  gap: 4rem;
+}
+
+button {
+  font-size: 1rem;
+  padding: 0.5em 1.5em;
 }
