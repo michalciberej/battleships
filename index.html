@@ -6,6 +6,72 @@
     <title>Battleships</title>
   </head>
   <body>
+    <div id="mainContainer"></div>
+    <h1>BATTLESHIP</h1>
+    <div id="gameboardsContainer">
+      <div id="one">
+        <div id="shipsContainer">
+          <div
+            class="ships"
+            id="carrier"
+            data-size="5"
+            data-dir="row"
+            draggable="true"
+          >
+            <div class="tower"></div>
+            <div class="tower"></div>
+            <div class="tower"></div>
+          </div>
+          <div
+            class="ships"
+            id="battleship"
+            data-size="4"
+            data-dir="row"
+            draggable="true"
+          >
+            <div class="tower"></div>
+            <div class="tower"></div>
+          </div>
+          <div
+            class="ships"
+            id="destroyerOne"
+            data-size="3"
+            data-dir="row"
+            draggable="true"
+          >
+            <div class="tower"></div>
+          </div>
+          <div
+            class="ships"
+            id="destroyerTwo"
+            data-size="3"
+            data-dir="row"
+            draggable="true"
+          >
+            <div class="tower"></div>
+          </div>
+          <div
+            class="ships"
+            id="submarineOne"
+            data-size="2"
+            data-dir="row"
+            draggable="true"
+          ></div>
+          <div
+            class="ships"
+            id="submarineTwo"
+            data-size="2"
+            data-dir="row"
+            draggable="true"
+          ></div>
+        </div>
+        <div class="gameboards" id="gameboardOne"></div>
+      </div>
+    </div>
+    <div id="buttons">
+      <button type="button">START</button>
+    </div>
+
     <script src="main.js"></script>
   </body>
 </html>
