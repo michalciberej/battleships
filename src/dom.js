@@ -1,4 +1,4 @@
-import gameboardTwo from "./index";
+import { gameboardTwo } from "./index";
 
 export function createGameboardTwoDom() {
   const gameboardTwoDOM = document.createElement("div");

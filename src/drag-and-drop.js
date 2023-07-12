@@ -1,5 +1,5 @@
-import { gameboardOne } from ".";
-import { Ship } from "./ship";
+import { gameboardOne } from "./index";
+import Ship from "./ship";
 
 export function dragAndDrop() {
   const carrierDom = document.querySelector("#carrier");

@@ -1,4 +1,4 @@
-export class Ship {
+export default class Ship {
   constructor(size, dir = "row", hits = 0, isSunk = false) {
     this.size = size;
     this.dir = dir;
