@@ -1,7 +1,8 @@
 import { gameboardOne } from "./index";
+import { isPlacementPossible } from "./gameboards";
 import Ship from "./ship";
 
-export function dragAndDrop() {
+export default function dragAndDrop() {
   const carrierDom = document.querySelector("#carrier");
   const battleshipDom = document.querySelector("#battleship");
   const destroyerOneDom = document.querySelector("#destroyerOne");
@@ -161,6 +162,16 @@ function allowDrop(e) {
 }
 function drop(e) {
   e.preventDefault();
-  const ship = e.dataTransfer.getData("ship");
-  e.target.appendChild(document.querySelector(`#${ship}`));
+  const shipId = e.dataTransfer.getData("ship");
+  const ship = document.querySelector(`#${shipId}`);
+  console.log(ship);
+  if (
+    isPlacementPossible(
+      e.originalTarget.dataset.row,
+      e.originalTarget.dataset.column,
+      ship,
+      ship.dir
+    )
+  )
+    e.target.appendChild(document.querySelector(`#${shipId}`));
 }

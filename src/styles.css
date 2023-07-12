@@ -1,6 +1,7 @@
 :root {
   --main-whiteColor: #d4d4d8;
   --main-blackColor: #18181b;
+  --main-waterColor: #0891b2;
 }
 
 html {
@@ -34,7 +35,6 @@ body {
   height: 20rem;
   display: flex;
   flex-wrap: wrap;
-  background-color: #0891b2;
   border: 1px solid black;
 }
 
@@ -58,11 +58,12 @@ body {
 }
 
 .boards {
-  background-color: transparent;
   width: 2rem;
   height: 2rem;
   border: 1px solid black;
   box-sizing: border-box;
+  position: relative;
+  z-index: 4;
 }
 
 #gameboardTwo > .boards:hover {
@@ -85,7 +86,6 @@ body {
   display: flex;
   justify-content: center;
   position: relative;
-  z-index: 5;
   cursor: pointer;
 }
 
@@ -98,12 +98,14 @@ body {
   border-radius: 0.8rem;
 }
 
-#gameboardTwo > .water {
-  background-color: #0891b2;
+.water {
+  background-color: var(--main-waterColor);
 }
 
-#gameboardTwo > .ship {
-  background-color: #dc2626;
+.ship {
+  position: relative;
+  z-index: 1;
+  background-color: red;
 }
 
 #carrier {
