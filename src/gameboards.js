@@ -1,5 +1,7 @@
-import { gameboardTwo, gameboardOne } from "./index.js";
 import Ship from "./ship.js";
+import isGameOver from "./gamelogic.js";
+import { gameboardOne } from "./index.js";
+import { player, computer } from "./index.js";
 export default class Gameboard {
   constructor(ships = [], missedShots = []) {
     this.ships = ships;
@@ -56,6 +58,8 @@ export default class Gameboard {
           e.classList.add("ship");
           element[2].hit();
           element[2].sink();
+          player.updateScore();
+          isGameOver();
           break;
         }
       }
@@ -79,7 +83,8 @@ export default class Gameboard {
           element[2].hit();
           element[2].sink();
           num++;
-          console.log("hit");
+          computer.updateScore();
+          isGameOver();
           break;
         }
       }
@@ -144,24 +149,60 @@ export function isPlacementPossible(
   if (row <= 0 || row > 10 || column <= 0 || column > 10) return false;
 
   if (size == 5) {
-    if (column > 6 && dir === "row") return false;
-    if (row > 6 && dir === "column") return false;
+    if (column > 6 && dir == "row") return false;
+    if (row > 6 && dir == "column") return false;
   }
 
   if (size == 4) {
-    if (column > 7 && dir === "row") return false;
-    if (row > 7 && dir === "column") return false;
+    if (column > 7 && dir == "row") return false;
+    if (row > 7 && dir == "column") return false;
   }
 
   if (size == 3) {
-    if (column > 8 && dir === "row") return false;
-    if (row > 8 && dir === "column") return false;
+    if (column > 8 && dir == "row") return false;
+    if (row > 8 && dir == "column") return false;
   }
 
   if (size == 2) {
-    if (column > 9 && dir === "row") return false;
-    if (row > 9 && dir === "column") return false;
+    if (column > 9 && dir == "row") return false;
+    if (row > 9 && dir == "column") return false;
   }
 
   return true;
+}
+
+export function isPlacementPossibleTwo(row, column, size, dir) {
+  let result = true;
+
+  if (row <= 0 || row > 10 || column <= 0 || column > 10) result = false;
+
+  if (size == 5) {
+    if (column > 6 && dir == "row") result = false;
+    if (row > 6 && dir == "column") result = false;
+  }
+
+  if (size == 4) {
+    if (column > 7 && dir == "row") result = false;
+    if (row > 7 && dir == "column") result = false;
+  }
+
+  if (size == 3) {
+    if (column > 8 && dir == "row") result = false;
+    if (row > 8 && dir == "column") result = false;
+  }
+
+  if (size == 2) {
+    if (column > 9 && dir == "row") result = false;
+    if (row > 9 && dir == "column") result = false;
+  }
+
+  gameboardOne.ships.forEach((element) => {
+    for (let i = 0; i < element[0].length; i++) {
+      if (element[0][i] == row && element[1][i] == column) {
+        return (result = false);
+      }
+    }
+  });
+
+  return result;
 }

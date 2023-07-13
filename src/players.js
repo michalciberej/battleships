@@ -1,8 +1,10 @@
-import Ship from "./ship";
-import { gameboardTwo } from "./index";
 export default class Player {
-  constructor(hasPriority, ships = false) {
+  constructor(hasPriority, score = 0) {
     this.hasPriority = hasPriority;
-    this.ships = ships;
+    this.score = score;
+  }
+
+  updateScore() {
+    this.score++;
   }
 }

@@ -82,20 +82,25 @@ body {
 .ships {
   background-color: #57534e;
   height: 2rem;
-  border-radius: 35%;
+  border-radius: 45%;
   display: flex;
   justify-content: center;
+  align-items: center;
   position: relative;
   cursor: pointer;
+  z-index: 0;
+  gap: 0.5rem;
 }
 
 .tower {
-  width: 2rem;
-  height: 2rem;
+  width: 1.5rem;
+  height: 1.5rem;
   border: 4px solid #747474;
   box-sizing: border-box;
   background-color: #292524;
   border-radius: 0.8rem;
+  position: relative;
+  z-index: 0;
 }
 
 #gameboardTwo > .water {
@@ -120,6 +125,7 @@ body {
 
 #carrier {
   width: 10rem;
+  position: relative;
 }
 
 #battleship {

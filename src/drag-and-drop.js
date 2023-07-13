@@ -1,5 +1,5 @@
 import { gameboardOne } from "./index";
-import { isPlacementPossible } from "./gameboards";
+import { isPlacementPossibleTwo } from "./gameboards";
 import Ship from "./ship";
 
 export default function dragAndDrop() {
@@ -33,16 +33,7 @@ export default function dragAndDrop() {
   for (let board of boards) {
     board.addEventListener("dragover", (e) => allowDrop(e));
     board.addEventListener("drop", (e) => {
-      const ship = e.dataTransfer.getData("ship");
       drop(e);
-      gameboardOne.addShip(
-        e.originalTarget.dataset.row,
-        e.originalTarget.dataset.column,
-        new Ship(
-          document.querySelector(`#${ship}`).dataset.size,
-          document.querySelector(`#${ship}`).dataset.dir
-        )
-      );
     });
   }
 }
@@ -162,15 +153,27 @@ function allowDrop(e) {
 }
 function drop(e) {
   e.preventDefault();
-  const shipId = e.dataTransfer.getData("ship");
+  var shipId = e.dataTransfer.getData("ship");
   const ship = document.querySelector(`#${shipId}`);
   if (
-    isPlacementPossible(
+    isPlacementPossibleTwo(
       e.originalTarget.dataset.row,
       e.originalTarget.dataset.column,
-      ship,
-      ship.dir
-    )
-  )
+      ship.dataset.size,
+      ship.dataset.dir
+    ) &&
+    !e.target.hasChildNodes()
+  ) {
+    gameboardOne.addShip(
+      e.originalTarget.dataset.row,
+      e.originalTarget.dataset.column,
+      new Ship(
+        document.querySelector(`#${shipId}`).dataset.size,
+        document.querySelector(`#${shipId}`).dataset.dir
+      )
+    );
     e.target.appendChild(document.querySelector(`#${shipId}`));
+    ship.removeAttribute("draggable");
+    ship.removeEventListener("contextmenu", (e) => rotate(e));
+  } else return;
 }
