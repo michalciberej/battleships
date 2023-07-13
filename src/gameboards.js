@@ -3,9 +3,9 @@ import isGameOver from "./gamelogic.js";
 import { gameboardOne } from "./index.js";
 import { player, computer } from "./index.js";
 export default class Gameboard {
-  constructor(ships = [], missedShots = []) {
+  constructor(ships = [], shots = []) {
     this.ships = ships;
-    this.missedShots = missedShots;
+    this.shots = shots;
   }
 
   addShip(coordRow, coordColumn, ship) {
@@ -59,7 +59,7 @@ export default class Gameboard {
           element[2].hit();
           element[2].sink();
           player.updateScore();
-          isGameOver();
+          isGameOver(player, computer);
           break;
         }
       }
@@ -82,28 +82,31 @@ export default class Gameboard {
           cell.classList.add("ship");
           element[2].hit();
           element[2].sink();
-          num++;
           computer.updateScore();
-          isGameOver();
+          isGameOver(player, computer);
+          num++;
           break;
         }
       }
     });
-    if (!this.isCellEmpty(row, column) && num === 1) this.recieveRandomAttack();
+    if (this.isCellEmpty(row, column) && num < 1) this.recieveRandomAttack();
+    this.shots.push([row, column]);
   }
 
   isCellEmpty(row, column) {
-    let empty = true;
+    let empty = false;
 
-    this.ships.forEach((element) => {
+    gameboardOne.ships.forEach((element) => {
       for (let i = 0; i < element[0].length; i++) {
         if (element[0][i] == row && element[1][i] == column) {
-          empty = false;
+          return (empty = true);
         }
       }
     });
-    this.missedShots.forEach((element) => {
-      if (element[0] == row && element[1] == column) empty = false;
+    gameboardOne.shots.forEach((element) => {
+      if (element[0] == row && element[1] == column) {
+        return (empty = true);
+      }
     });
     return empty;
   }
@@ -127,10 +130,10 @@ export default class Gameboard {
     let correctPlacement = 0;
 
     while (correctPlacement <= 5) {
-      const row = Math.floor(Math.random() * 10);
-      const column = Math.floor(Math.random() * 10);
+      const row = Math.floor(Math.random() * 10) + 1;
+      const column = Math.floor(Math.random() * 10) + 1;
       const dir = Math.floor(Math.random() * 2) === 1 ? "row" : "column";
-      if (isPlacementPossible(row, column, ships[correctPlacement], dir)) {
+      if (isPlacementPossible(row, column, ships[correctPlacement].size, dir)) {
         ships[correctPlacement].dir = dir;
         this.addShipRandom(row, column, ships[correctPlacement], dir);
         correctPlacement++;
@@ -139,39 +142,7 @@ export default class Gameboard {
   }
 }
 
-export function isPlacementPossible(
-  row = null,
-  column = null,
-  ship = null,
-  dir = null
-) {
-  const size = ship.size;
-  if (row <= 0 || row > 10 || column <= 0 || column > 10) return false;
-
-  if (size == 5) {
-    if (column > 6 && dir == "row") return false;
-    if (row > 6 && dir == "column") return false;
-  }
-
-  if (size == 4) {
-    if (column > 7 && dir == "row") return false;
-    if (row > 7 && dir == "column") return false;
-  }
-
-  if (size == 3) {
-    if (column > 8 && dir == "row") return false;
-    if (row > 8 && dir == "column") return false;
-  }
-
-  if (size == 2) {
-    if (column > 9 && dir == "row") return false;
-    if (row > 9 && dir == "column") return false;
-  }
-
-  return true;
-}
-
-export function isPlacementPossibleTwo(row, column, size, dir) {
+export function isPlacementPossible(row, column, size, dir) {
   let result = true;
 
   if (row <= 0 || row > 10 || column <= 0 || column > 10) result = false;

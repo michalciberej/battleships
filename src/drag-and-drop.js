@@ -1,5 +1,5 @@
 import { gameboardOne } from "./index";
-import { isPlacementPossibleTwo } from "./gameboards";
+import { isPlacementPossible } from "./gameboards";
 import Ship from "./ship";
 
 export default function dragAndDrop() {
@@ -156,7 +156,7 @@ function drop(e) {
   var shipId = e.dataTransfer.getData("ship");
   const ship = document.querySelector(`#${shipId}`);
   if (
-    isPlacementPossibleTwo(
+    isPlacementPossible(
       e.originalTarget.dataset.row,
       e.originalTarget.dataset.column,
       ship.dataset.size,
