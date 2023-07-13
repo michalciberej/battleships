@@ -164,7 +164,6 @@ function drop(e) {
   e.preventDefault();
   const shipId = e.dataTransfer.getData("ship");
   const ship = document.querySelector(`#${shipId}`);
-  console.log(ship);
   if (
     isPlacementPossible(
       e.originalTarget.dataset.row,

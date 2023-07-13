@@ -98,11 +98,21 @@ body {
   border-radius: 0.8rem;
 }
 
-.water {
+#gameboardTwo > .water {
   background-color: var(--main-waterColor);
 }
 
-.ship {
+#gameboardTwo > .ship {
+  position: relative;
+  z-index: 1;
+  background-color: red;
+}
+
+#gameboardOne > .water {
+  background-color: var(--main-waterColor);
+}
+
+#gameboardOne > .ship {
   position: relative;
   z-index: 1;
   background-color: red;

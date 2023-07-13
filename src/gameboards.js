@@ -1,6 +1,7 @@
-import Ship from "./ship";
+import { gameboardTwo, gameboardOne } from "./index.js";
+import Ship from "./ship.js";
 export default class Gameboard {
-  constructor(ships = [], missedShots = null) {
+  constructor(ships = [], missedShots = []) {
     this.ships = ships;
     this.missedShots = missedShots;
   }
@@ -25,7 +26,6 @@ export default class Gameboard {
       const x = [temp, tempTwo, ship];
       this.ships.push(x);
     }
-    console.log(this.ships);
   }
 
   addShipRandom(coordRow, coordColumn, ship, dir) {
@@ -48,6 +48,7 @@ export default class Gameboard {
   }
 
   recieveAttack(coordRow, coordColumn, e) {
+    e.classList.add("water");
     this.ships.forEach((element) => {
       for (let i = 0; i < element[0].length; i++) {
         if (element[0][i] == coordRow && element[1][i] == coordColumn) {
@@ -59,14 +60,16 @@ export default class Gameboard {
         }
       }
     });
+    gameboardOne.recieveRandomAttack();
   }
 
   recieveRandomAttack() {
-    let row = Math.floor(Math.random() * 10);
-    let column = Math.floor(Math.random() * 10);
+    let row = Math.floor(Math.random() * 10) + 1;
+    let column = Math.floor(Math.random() * 10) + 1;
     let cell = document.querySelector(
       `#gameboardOne > .boards[data-row="${row}"][data-column="${column}"]`
     );
+    let num = 0;
     cell.classList.add("water");
     this.ships.forEach((element) => {
       for (let i = 0; i < element[0].length; i++) {
@@ -75,10 +78,29 @@ export default class Gameboard {
           cell.classList.add("ship");
           element[2].hit();
           element[2].sink();
+          num++;
+          console.log("hit");
           break;
         }
       }
     });
+    if (!this.isCellEmpty(row, column) && num === 1) this.recieveRandomAttack();
+  }
+
+  isCellEmpty(row, column) {
+    let empty = true;
+
+    this.ships.forEach((element) => {
+      for (let i = 0; i < element[0].length; i++) {
+        if (element[0][i] == row && element[1][i] == column) {
+          empty = false;
+        }
+      }
+    });
+    this.missedShots.forEach((element) => {
+      if (element[0] == row && element[1] == column) empty = false;
+    });
+    return empty;
   }
 
   placeShipsRandomly() {

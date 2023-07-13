@@ -22,7 +22,7 @@ document.querySelector("button").addEventListener("click", () => {
   moveStuff();
 });
 
-//gameboardTwo.placeShipsRandomly();
+gameboardTwo.placeShipsRandomly();
 
 document.querySelector("#x").addEventListener("click", () => {
   gameboardOne.recieveRandomAttack();
