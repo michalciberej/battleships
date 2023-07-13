@@ -173,7 +173,8 @@ function drop(e) {
       )
     );
     e.target.appendChild(document.querySelector(`#${shipId}`));
-    ship.removeAttribute("draggable");
-    ship.removeEventListener("contextmenu", (e) => rotate(e));
+    let oldElement = document.getElementById(`${shipId}`);
+    let newElement = oldElement.cloneNode(true);
+    oldElement.parentNode.replaceChild(newElement, oldElement);
   } else return;
 }
