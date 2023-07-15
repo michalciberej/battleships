@@ -1,4 +1,8 @@
-export default function isGameOver(playerOne, playerTwo) {
-  if (playerOne.score === 6) console.log("playerTwo wins");
-  if (playerTwo.score === 6) console.log("playerTwo wins");
+import { gameboardOne, gameboardTwo } from ".";
+import { generateModal } from "./dom";
+import { score } from "./gameboards";
+
+export default function isGameOver() {
+  if (score(gameboardTwo)) generateModal("You win");
+  if (score(gameboardOne)) generateModal("Enemy wins");
 }

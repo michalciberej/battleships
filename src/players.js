@@ -1,10 +1,5 @@
 export default class Player {
-  constructor(hasPriority, score = 0) {
+  constructor(hasPriority) {
     this.hasPriority = hasPriority;
-    this.score = score;
-  }
-
-  updateScore() {
-    this.score++;
   }
 }

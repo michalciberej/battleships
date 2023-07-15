@@ -1,6 +1,7 @@
 import { gameboardOne } from "./index";
 import { isPlacementPossible } from "./gameboards";
 import Ship from "./ship";
+import { moveStuff } from "./dom";
 
 export default function dragAndDrop() {
   const carrierDom = document.querySelector("#carrier");
@@ -176,5 +177,8 @@ function drop(e) {
     let oldElement = document.getElementById(`${shipId}`);
     let newElement = oldElement.cloneNode(true);
     oldElement.parentNode.replaceChild(newElement, oldElement);
+    document.getElementById(`${shipId}`).removeAttribute("draggable");
   } else return;
+
+  if (gameboardOne.ships.length === 6) moveStuff();
 }

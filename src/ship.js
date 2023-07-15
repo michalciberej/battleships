@@ -11,6 +11,6 @@ export default class Ship {
   }
 
   sink() {
-    if (this.hits === this.size) this.isSunk = true;
+    if (this.hits == this.size) this.isSunk = true;
   }
 }

@@ -1,7 +1,6 @@
 import Ship from "./ship.js";
 import isGameOver from "./gamelogic.js";
 import { gameboardOne } from "./index.js";
-import { player, computer } from "./index.js";
 export default class Gameboard {
   constructor(ships = [], shots = []) {
     this.ships = ships;
@@ -58,22 +57,25 @@ export default class Gameboard {
           e.classList.add("ship");
           element[2].hit();
           element[2].sink();
-          player.updateScore();
-          isGameOver(player, computer);
+          isGameOver();
           break;
         }
       }
     });
+    this.shots.push([coordRow, coordColumn]);
     gameboardOne.recieveRandomAttack();
   }
 
   recieveRandomAttack() {
     let row = Math.floor(Math.random() * 10) + 1;
     let column = Math.floor(Math.random() * 10) + 1;
+    while (this.isCellEmpty(row, column)) {
+      row = Math.floor(Math.random() * 10) + 1;
+      column = Math.floor(Math.random() * 10) + 1;
+    }
     let cell = document.querySelector(
       `#gameboardOne > .boards[data-row="${row}"][data-column="${column}"]`
     );
-    let num = 0;
     cell.classList.add("water");
     this.ships.forEach((element) => {
       for (let i = 0; i < element[0].length; i++) {
@@ -82,27 +84,17 @@ export default class Gameboard {
           cell.classList.add("ship");
           element[2].hit();
           element[2].sink();
-          computer.updateScore();
-          isGameOver(player, computer);
-          num++;
+          isGameOver();
           break;
         }
       }
     });
-    if (this.isCellEmpty(row, column) && num < 1) this.recieveRandomAttack();
     this.shots.push([row, column]);
   }
 
   isCellEmpty(row, column) {
     let empty = false;
 
-    gameboardOne.ships.forEach((element) => {
-      for (let i = 0; i < element[0].length; i++) {
-        if (element[0][i] == row && element[1][i] == column) {
-          return (empty = true);
-        }
-      }
-    });
     gameboardOne.shots.forEach((element) => {
       if (element[0] == row && element[1] == column) {
         return (empty = true);
@@ -144,17 +136,52 @@ export default class Gameboard {
 
 export function isPlacementPossible(row, column, size, dir) {
   let result = true;
-
   if (row <= 0 || row > 10 || column <= 0 || column > 10) result = false;
 
   if (size == 5) {
     if (column > 6 && dir == "row") result = false;
     if (row > 6 && dir == "column") result = false;
+    gameboardOne.ships.forEach((element) => {
+      for (let i = 0; i < element[0].length; i++) {
+        for (let j = 0; j < size; j++) {
+          if (
+            element[0][i] == row &&
+            element[1][i] == column + j &&
+            dir == "row"
+          )
+            return (result = false);
+          else if (
+            element[0][i] == row + j &&
+            element[1][i] == column &&
+            dir == "column"
+          )
+            return (result = false);
+        }
+      }
+    });
   }
 
   if (size == 4) {
     if (column > 7 && dir == "row") result = false;
     if (row > 7 && dir == "column") result = false;
+    gameboardOne.ships.forEach((element) => {
+      for (let i = 0; i < element[0].length; i++) {
+        for (let j = -1; j <= 1; j++) {
+          if (
+            element[0][i] == row + size &&
+            element[1][i] == column &&
+            dir == "column"
+          )
+            result = false;
+          if (
+            element[0][i] == row &&
+            element[1][i] == parseInt(column) + parseInt(size) &&
+            dir == "row"
+          )
+            result = false;
+        }
+      }
+    });
   }
 
   if (size == 3) {
@@ -176,4 +203,15 @@ export function isPlacementPossible(row, column, size, dir) {
   });
 
   return result;
+}
+
+export function score(gameboard) {
+  let num = 0;
+  gameboard.ships.forEach((element) => {
+    if (element[2].isSunk === true) {
+      num++;
+    }
+  });
+  if (num === 6) return true;
+  else return false;
 }

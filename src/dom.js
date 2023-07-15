@@ -13,10 +13,6 @@ function removeShipContainer() {
   document.querySelector("#shipsContainer").remove();
 }
 
-function removeStartButton() {
-  document.querySelector("button").remove();
-}
-
 export function createBoardsOne() {
   const gameboardOneDOM = document.querySelector("#gameboardOne");
 
@@ -69,10 +65,34 @@ export function moveStuff() {
   createBoardsTwo();
 
   removeShipContainer();
-  removeStartButton();
 
   gameboardOneDOM.style.transform = "scale(0.8) translate(-2rem)";
 
   gameboardTwoDOM.style.transform = "scale(1)";
   gameboardTwoDOM.style.position = "relative";
+}
+
+export function generateModal(winner) {
+  const modal = document.createElement("div");
+  const overlay = document.createElement("div");
+
+  modal.classList.add("modal");
+
+  const button = document.createElement("button");
+  button.textContent = "Play Again";
+  button.classList.add("resetBtn");
+  button.addEventListener("click", (e) => {
+    e.preventDefault();
+    location.reload();
+  });
+
+  const hTwo = document.createElement("h2");
+  hTwo.textContent = `${winner}`;
+  overlay.classList.add("overlay");
+
+  modal.appendChild(hTwo);
+  modal.appendChild(button);
+
+  document.querySelector("body").appendChild(modal);
+  document.querySelector("body").appendChild(overlay);
 }

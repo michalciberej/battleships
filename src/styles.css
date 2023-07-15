@@ -43,6 +43,10 @@ body {
 }
 
 #gameboardOne {
+  background: lightblue;
+}
+
+#gameboardOne {
   position: relative;
   transition: all 1s ease;
 }
@@ -110,7 +114,7 @@ body {
 #gameboardTwo > .ship {
   position: relative;
   z-index: 1;
-  background-color: red;
+  background-color: brown;
 }
 
 #gameboardOne > .water {
@@ -120,7 +124,7 @@ body {
 #gameboardOne > .ship {
   position: relative;
   z-index: 1;
-  background-color: red;
+  background-color: brown;
 }
 
 #carrier {
@@ -151,4 +155,41 @@ body {
 button {
   font-size: 1rem;
   padding: 0.5em 1.5em;
+}
+
+.modal {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 15rem;
+  height: 10rem;
+  background-color: white;
+  z-index: 15555;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2rem;
+}
+
+.overlay {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal > h2 {
+  font-size: 1.8rem;
+}
+
+.modal > button {
+  font-size: 1rem;
 }
